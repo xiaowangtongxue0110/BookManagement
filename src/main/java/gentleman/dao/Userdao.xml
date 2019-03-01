@@ -10,7 +10,7 @@
    INSERT INTO emp(name,password,phone,email) VALUES (#{name},#{password},#{phone},#{email});
     </insert>
 
-    <select id="selectLogin" resultType="User" >
+    <select id="selectLogin" resultType="gentleman.bean.User" >
         select name,password,phone,email from emp where name=#{name};
     </select>
 
@@ -27,19 +27,27 @@
     </select>
 
     <select id="selectUser" resultType="User">
-          select * from emp;
+          select * from emp limit 0,5 ;
     </select>
 
     <update id="updateUser">
-        UPDATE emp set name=#{name},password=#{password},phone=#{phone},email=#{email} where id=#{id}
+        UPDATE emp set name=#{name},password=#{password},phone=#{phone},email=#{email} where id=#{id};
     </update>
 
     <select id="selectUserById" resultType="User" flushCache="false">
         select * from emp where id = #{id};
     </select>
 
-    <delete id="deleteUserById">
+    <delete id="deleteUserById" >
         delete from emp where id = #{id};
     </delete>
+
+    <select id="findPassword" resultType="User">
+        select name,password,phone,email from emp where name=#{username} and phone=#{phone};
+    </select>
+
+    <update id="updateFindPassword">
+        UPDATE emp set password=#{password} where name=#{username};
+    </update>
 
 </mapper>

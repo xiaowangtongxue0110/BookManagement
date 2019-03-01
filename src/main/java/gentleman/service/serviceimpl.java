@@ -61,5 +61,17 @@ public class serviceimpl implements UserService {
         throw new Exception();
     }
 
+    @Override
+    public User findPassword(String username, String phone) {
+        return userdao.findPassword(username,phone);
+    }
+
+    @Override
+    public void updateFindPassword(String username, String password) {
+           userdao.updateFindPassword(username,password);
+    }
+
+
+
 
 }

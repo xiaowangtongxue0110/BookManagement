@@ -24,4 +24,7 @@ public interface Userdao {
 
     void deleteUserById(int id);
 
+    User findPassword( @Param("username") String username,@Param("phone")String phone);
+
+    void updateFindPassword(@Param("username") String username,@Param("password")String password);
 }

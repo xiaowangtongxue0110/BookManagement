@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>修改密码</title>
+    <link href="../images/tipchildren.ico" rel="icon" type="image/x-ico">
+    <link href="../css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../css/sweetalert.css">
+    <script type="text/javascript" src="../js/sweetalert-dev.js"></script>
+</head>
+<body>
+
+<nav  style="position:fixed;z-index: 999;width: 100%;background-color: #fff" class="navbar navbar-default" role="navigation" >
+    <div class="container-fluid">
+        <div class="navbar-header" style="margin-left: 8%;margin-right: 1%">
+            <a class="navbar-brand" href="admin_main.html">图书管理系统</a>
+        </div>
+        <div class="collapse navbar-collapse" >
+            <ul class="nav navbar-nav navbar-left">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        图书管理
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="allbooks.html">全部图书</a></li>
+                        <li class="divider"></li>
+                        <li><a href="book_add.html">增加图书</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        读者管理
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="allreaders.html">全部读者</a></li>
+                        <li class="divider"></li>
+                        <li><a href="reader_add.html">增加读者</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        借还管理
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="lendlist.html">借还日志</a></li>
+                    </ul>
+                </li>
+                <li >
+                    <a href="success.html" >
+                        用户查看
+                    </a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li >
+                    <a href="index.html">
+                        未登录!点击登陆
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div></div>
+<div class="col-xs-6 col-md-offset-3" style="position: relative;top: 15%">
+    <div class="alert alert-success alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert"
+                aria-hidden="true">
+            &times;
+        </button>
+    </div>
+    <br><br><br>
+    <div id="msg"></div>
+    <div class="panel panel-primary " >
+        <div class="panel-heading" align="center">
+            <h3 class="panel-title">添加新密码</h3>
+        </div>
+        <div class="panel-body" >
+            <div class="container-fluid">
+                <form id="user-form" style="max-width: 330px;padding: 15px;margin: 0 auto;" role="form"  >
+                    <input type="hidden" id="id" >
+
+                    <div class="form-group">
+                        <span id="password_span" style="color: red"></span><br>
+                        <label for="password">新密码:</label>
+                        <input type="password"  class="form-control" id="password" placeholder="输入新密码" name="password" oninput="checkPassword()"  >
+                    </div>
+
+                    <div class="form-group">
+                    <span id="repassword_span" style="color: red"></span><br>
+                    <label for="repassword">确认密码:</label>
+                    <input type="password" class="form-control" id="repassword" placeholder="再次输入密码" name="repassword" oninput="checkRepassword()">
+                     </div>
+                    <br>
+                    <br>
+                    <button type="button" class="btn  btn-primary ">修改</button>
+                    <button type="button" class="btn  btn-success">返回</button>
+                </form>
+            </div>
+
+</div>
+
+
+        <script src="../js/jquery-3.3.1.min.js"></script>
+        <script src="../js/bootstrap.js"></script>
+<script>
+
+      $(function () {
+          $(".btn-primary").click(function () {
+              var p = checkPassword();
+              var rp = checkRepassword();
+              var sub = (p&&rp);
+              updater(sub);
+          });
+
+          $(".btn-success").click(function () {
+              $(location).attr('href', '/html/admin_repasswd.html');
+          });
+
+
+      });
+
+
+
+    function updater(boolean) {
+        if(boolean==false){
+
+        }else if (boolean==true){
+            var userID = location.search.split("=");
+            var username = userID[1];
+            var password = $("#password").val();
+            $.ajax({
+                url:"/updateFindPassword",
+                type:"post",
+                data:{'username':username,'password':password},
+                dataType:"json",
+                success:function (result) {
+                    console.log(result);
+                    if(result=="success"){
+                        swal({
+                                title: "密码修改成功！请牢记！",
+                                text: "要跳转到登陆页面吗？",
+                                type: "success",
+                                showCancelButton: true,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "确定",
+                                closeOnConfirm: false
+                            },
+                            function(){
+                                $(location).attr('href','/html/index.html');
+                            });
+                    }else{
+                        swal("修改失败！","请检查后重新输入","error")
+                    }
+                }
+            });
+        }
+    }
+
+      function checkPassword(){
+          var password=document.getElementById("password").value;
+          var reg=/^[a-zA-Z]\w{5,15}$/;
+          var f = reg.test(password);
+          if(f==false){
+              document.getElementById("password_span").innerHTML="密码格式错误，字母数字下划线5-15位之间！";
+              return false;
+          }else if(password==""||password==null){
+              document.getElementById("password_span").innerHTML="密码不能为空！";
+              return false;
+          }else{
+              document.getElementById("password_span").innerHTML="";
+              return true;
+          }
+      }
+      function checkRepassword(){
+          var password=document.getElementById("password").value;
+          var repassword= $("#repassword").val();
+          if(password==repassword){
+              document.getElementById("repassword_span").innerHTML="";
+              return true;
+          }else{
+              document.getElementById("repassword_span").innerHTML="两次输入密码不一致";
+              return false;
+          }
+      }
+
+      $('a').click(function () {
+          swal("请先登陆再进行此操作");
+      });
+
+</script>
+<!-- 雪花特效 -->
+<script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
+<script src="http://itbyc.com/templets/yang/js/snow.js"></script>
+<style type="text/css">.snow-container{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:100001;}</style>
+<div class="snow-container"></div>
+    </div>
+</div>
+</body>
+</html>

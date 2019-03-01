@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface UserService {
+
+
     void addUser(User user);
 
     User selectLogin(String name);
@@ -23,5 +25,9 @@ public interface UserService {
     User selectUserById(int id);
 
     void deleteUserById(int id) throws Exception;
+
+    User findPassword(@Param("username") String username, @Param("phone")String phone);
+
+    void updateFindPassword(@Param("username") String username,@Param("password")String password);
 
 }
