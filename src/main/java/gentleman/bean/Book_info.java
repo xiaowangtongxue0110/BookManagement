@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Book_info implements Serializable {
@@ -21,9 +22,8 @@ public class Book_info implements Serializable {
     private String language;
 
     private BigDecimal price;
-
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date pubdate;
+    private LocalDate pubdate;
 
     private Integer classId;
 
@@ -89,11 +89,11 @@ public class Book_info implements Serializable {
         this.price = price;
     }
 
-    public Date getPubdate() {
+    public LocalDate getPubdate() {
         return pubdate;
     }
 
-    public void setPubdate(Date pubdate) {
+    public void setPubdate(LocalDate pubdate) {
         this.pubdate = pubdate;
     }
 
@@ -129,6 +129,8 @@ public class Book_info implements Serializable {
         this.introduction = introduction == null ? null : introduction.trim();
     }
 
+    public Book_info() {
+    }
 
     @Override
     public String toString() {

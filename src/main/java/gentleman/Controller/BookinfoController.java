@@ -19,19 +19,19 @@ public class BookinfoController {
        private Bookinfoservice bookMapper;
 
 
+
        @GetMapping("/book")
        public String selectAllBook_info(int currentPage, int pageSize){
            PageHelper.startPage(currentPage,pageSize);
            List<Book_info> books = bookMapper.selectAllBook_info(currentPage,pageSize);
+
            PageInfo<Book_info> book_count = new PageInfo<>(books);
            int sum = (int) book_count.getTotal();
            HashMap<String, Object> map = new HashMap<>();
               map.put("sum",sum);
               map.put("books",books);
            return JSON.toJSONString(map);
-
        }
-
 
        @PostMapping("/book")
       public String insert(@RequestBody Book_info record){
@@ -56,7 +56,4 @@ public class BookinfoController {
                return JSON.toJSONString("fail");
            }
        }
-
-
-
 }

@@ -2,12 +2,14 @@ package gentleman.dao;
 
 import gentleman.bean.reader_info;
 import gentleman.bean.reader_infoExample;
+import gentleman.util.PageUtil;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 public interface reader_infoMapper {
-    long countByExample(reader_infoExample example);
+
+    long countByExample();
 
     int deleteByExample(reader_infoExample example);
 
@@ -30,6 +32,5 @@ public interface reader_infoMapper {
     int updateByPrimaryKey(reader_info record);
 
     List<reader_info> selectAllreader_info();
-
 
 }

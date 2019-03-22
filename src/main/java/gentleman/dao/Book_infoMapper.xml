@@ -132,7 +132,7 @@
   </delete>
   <insert id="insert" parameterType="gentleman.bean.Book_info">
     insert into book_info (
-      book_id, name,author,publish,ISBN,introduction, language, price, pubdate, class_id, pressmark,state
+    book_id, name,author,publish,ISBN,introduction, language, price, pubdate, class_id, pressmark,state
       )
     values (#{bookId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR},
       #{publish,jdbcType=VARCHAR}, #{isbn,jdbcType=VARCHAR},#{introduction,jdbcType=LONGVARCHAR},
@@ -145,9 +145,6 @@
   <insert id="insertSelective" parameterType="gentleman.bean.Book_info">
     insert into book_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="bookId != null">
-        book_id,
-      </if>
       <if test="name != null">
         name,
       </if>
@@ -183,9 +180,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="bookId != null">
-        #{bookId,jdbcType=BIGINT},
-      </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>

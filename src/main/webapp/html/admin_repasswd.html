@@ -12,7 +12,6 @@
     <script src="../js/bootstrap.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/sweetalert.css">
     <script type="text/javascript" src="../js/sweetalert-dev.js"></script>
-
 </head>
 <body>
 <nav  style="position:fixed;z-index: 999;width: 100%;background-color: #fff" class="navbar navbar-default" role="navigation" >
@@ -60,10 +59,10 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li >
-                    <a href="index.html">
+                <li>
+                     <button class="btn btn-lg btn-info">
                         未登录!点击登陆
-                    </a>
+                    </button>
                 </li>
                 <!--<button id="return0" type="button" >登陆</button>-->
                 <!--<li><a href="index.html"><span class="glyphicon glyphicon-log-in"></span>&nbsp;退出</a></li>-->
@@ -92,30 +91,26 @@
                 <form id="user-form" style="max-width: 330px;padding: 15px;margin: 0 auto;" role="form"  >
                     <input type="hidden" id="id" >
                     <div class="form-group">
-                        <span id="nickname_span" style="color: red"></span><br>
                         <label for="name">用户名:</label>
-                        <input type="text"  class="form-control" id="name" name="name" placeholder="输入要修改密码的用户名" oninput="findname()"  >
+                        <input type="text"  class="form-control" id="name" name="name" placeholder="输入要修改密码的用户名" oninput="findname()" >
+                        <br>
+                        <span id="nickname_span" style="color: red"></span>
                     </div>
                     <div class="form-group">
-                        <span id="phone_span" style="color: red"></span> <br>
                         <label for="phone">手机:</label>
                         <input type="text" class="form-control" placeholder="输入注册时对应的手机号" id="phone" name="phone" oninput="checkPhone()">
+                        <br>
+                        <span id="phone_span"style="color: red"></span>
                     </div>
                     <br>
-                    <br>
-                    <button type="button" class="btn  btn-primary ">下一步</button>
+                    <div style="text-align: right">
+                    <button type="button" class="btn  btn-primary">下一步</button>
                     <button type="button" class="btn  btn-success">返回</button>
+                    </div>
                 </form>
             </div>
-
 </div>
-
-
-
 <script>
-
-
-
       $(function () {
           $(".btn-primary").click(function () {
               var f = findname();
@@ -124,15 +119,11 @@
               updater(sub);
           });
 
-          $(".btn-success").click(function () {
+          $(".btn-info").click(function () {
               $(location).attr('href', '/html/index.html');
           });
 
       });
-
-
-
-
 
     function updater(boolean) {
         if(boolean==false){
@@ -170,6 +161,7 @@
         }
         return g;
     }
+
     function findname() {
         var f = false;
         var name = $("#name").val();
@@ -190,9 +182,9 @@
 
 </script>
 <!-- 雪花特效 -->
-<script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
 <script src="http://itbyc.com/templets/yang/js/snow.js"></script>
 <style type="text/css">.snow-container{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:100001;}</style>
+
 <div class="snow-container"></div>
     </div>
 </div>

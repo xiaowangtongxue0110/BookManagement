@@ -37,8 +37,51 @@
 
     <link rel="stylesheet" href="../css/style.css" type="text/css" media="all">
     <script type="text/javascript">
-        /*7Core-CN - 网页鼠标点击特效（爱心）*/
-        !function (e, t, a) {function r() {for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");requestAnimationFrame(r)}function n() {var t = "function" == typeof e.onclick && e.onclick;e.onclick = function (e) {t && t(), o(e)}}function o(e) {var a = t.createElement("div");a.className = "heart", s.push({el: a,x: e.clientX - 5,y: e.clientY - 5,scale: 1,alpha: 1,color: c()}), t.body.appendChild(a)}function i(e) {var a = t.createElement("style");a.type = "text/css";try {a.appendChild(t.createTextNode(e))} catch (t) {a.styleSheet.cssText = e}t.getElementsByTagName("head")[0].appendChild(a)}function c() {return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"}var s = [];e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {setTimeout(e, 1e3 / 60)}, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()}(window, document);
+        !function (e, t, a) {
+            function r() {
+                for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+                requestAnimationFrame(r)
+            }
+
+            function n() {
+                var t = "function" == typeof e.onclick && e.onclick;
+                e.onclick = function (e) {
+                    t && t(), o(e)
+                }
+            }
+
+            function o(e) {
+                var a = t.createElement("div");
+                a.className = "heart", s.push({
+                    el: a,
+                    x: e.clientX - 5,
+                    y: e.clientY - 5,
+                    scale: 1,
+                    alpha: 1,
+                    color: c()
+                }), t.body.appendChild(a)
+            }
+
+            function i(e) {
+                var a = t.createElement("style");
+                a.type = "text/css";
+                try {
+                    a.appendChild(t.createTextNode(e))
+                } catch (t) {
+                    a.styleSheet.cssText = e
+                }
+                t.getElementsByTagName("head")[0].appendChild(a)
+            }
+
+            function c() {
+                return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+            }
+
+            var s = [];
+            e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+                setTimeout(e, 1e3 / 60)
+            }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+        }(window, document);
     </script>
     <script>
         ! function() {
@@ -163,9 +206,9 @@
 
 <!--<h1>登陆小demo</h1>-->
 
-<div class="container w3layouts agileits">
+<div class="container">
 
-    <div class="login w3layouts agileits">
+    <div class="login">
         <h2>登 录</h2>
 
 
@@ -235,22 +278,23 @@
                         data:{"username":username,"password":password,"remember":remember},
                         type:"post",
                         success:function (result) {
-                            if(result=="success"){
+                            console.log(result);
+                             if(result=="success"){
                                closeCookie();
                                 swal("登陆成功！","欢迎您！"+username,"success");
-                                Cookies.remove('username2',{ path: ''});
+                                Cookies.remove('username2',{path: ''});
                                 Cookies.set('username',username,{expires: 30, path: ''});
                                     $(location).attr('href','/html/homePage.html');
                             }else if(result=="remember1"){
                                     rememberLogin(username,password,remember);
-                                Cookies.remove('username',{ path: ''});
+                                Cookies.remove('username',{path: ''});
                                 Cookies.set('username2',username,{expires: 30, path: ''});
                                 swal("登陆成功！","即将自动跳转请稍后","success");
                                     setTimeout(function () {
                                         $(location).attr('href','/html/homePage.html');
                                     },1000);
                             }else{
-                                 swal("用户名或密码错误","请检查后重试","error");
+                                    swal("用户名或密码错误","请检查后重试","error");
                             }
                         }
                     });
@@ -260,7 +304,6 @@
             function remember() {
                 // 获取勾选框的内容
                 var brand = $("#brand1").prop('checked');
-                 console.log(brand);
                  if(brand==false){
                      $("#label_span").html("")
                  }else{
@@ -322,11 +365,12 @@
          var reg=/^[a-zA-Z]\w{5,15}$/;
 
          var f = reg.test(password);
-         if(f==false){
-             document.getElementById("password_span").innerHTML="密码格式错误，字母数字下划线5-15位之间！";
-             return false;
-         }else if(password==""||password==null){
+         if(password==""||password==null){
              document.getElementById("password_span").innerHTML="密码不能为空！";
+             return false;
+         }
+         else if(f==false){
+             document.getElementById("password_span").innerHTML="密码格式错误，字母数字下划线5-15位之间！";
              return false;
          }else{
              document.getElementById("password_span").innerHTML="";
@@ -336,11 +380,15 @@
     function checkRepassword(){
         var password=document.getElementById("password").value;
         var repassword= $("#repassword").val();
-        if(password==repassword){
+
+        if(repassword==""){
+            document.getElementById("repassword_span").innerHTML="确认密码不能为空！";
+        }
+        else if(password==repassword){
             document.getElementById("repassword_span").innerHTML="";
             return true;
         }else{
-            document.getElementById("repassword_span").innerHTML="两次输入密码不一致";
+            document.getElementById("repassword_span").innerHTML="两次输入密码不一致！";
             return false;
         }
     }
@@ -352,11 +400,13 @@
         var reg=/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
         var f = reg.test(email);
         var g = false;
-        if(f==false){
+
+         if(email==""||email==null){
+            document.getElementById("email_span").innerHTML="邮箱不能为空";
+        }
+        else if(f==false){
             document.getElementById("email_span").innerHTML="邮箱格式错误";
             return false;
-        }else if(email==""||email==null){
-            document.getElementById("email_span").innerHTML="邮箱不能为空";
         }else{
             document.getElementById("email_span").innerHTML="";
             $.ajax({
@@ -377,6 +427,7 @@
             return g;
         }
     }
+
     function checkPhone(){
         var g = false;
         var phone = document.getElementById('phone').value;
@@ -403,6 +454,7 @@
         }
         return g;
     }
+
     function findname() {
         var f = false;
         var name = $("#nickname").val();
@@ -474,10 +526,6 @@
                });
            }
        }
-
-      // swal(result.message,'',function(){
-      //     location.reload();
-      // });
 
 </script>
 </body>

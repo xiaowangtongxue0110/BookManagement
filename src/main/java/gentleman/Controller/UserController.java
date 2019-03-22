@@ -3,6 +3,7 @@ package gentleman.Controller;
 import com.alibaba.fastjson.JSON;
 import gentleman.bean.User;
 import gentleman.service.UserService;
+import gentleman.util.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -16,13 +17,16 @@ public class UserController {
 
      @PostMapping("/users")
      public String addUser(@RequestBody User user){
-              if (user!=null){
+         String s = MD5Util.MD5Encode(user.getPassword(), "utf-8");
+         user.setPassword(s);
+         if (user!=null){
                   userService.addUser(user);
                   return JSON.toJSONString("success");
               }else {
                   return JSON.toJSONString("no");
               }
      }
+
 
      @GetMapping("/users/{name}")
     public String selectLogin(@PathVariable String name) {
@@ -62,6 +66,9 @@ public class UserController {
 
      @PutMapping("/users/{id}")
     public String updateUser(@PathVariable int id,@RequestBody User user){
+         String password = user.getPassword();
+         String s = MD5Util.MD5Encode(password, "utf-8");
+         user.setPassword(s);
          try {
              user.setId(id);
              userService.updateUser(user);

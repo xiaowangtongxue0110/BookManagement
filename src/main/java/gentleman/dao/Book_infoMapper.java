@@ -23,4 +23,6 @@ public interface Book_infoMapper {
 
     List<Book_info> selectAllBook_info();
 
+
+
 }

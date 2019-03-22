@@ -11,6 +11,7 @@ import java.util.List;
 @Service
 @Transactional
 public class serviceimpl implements UserService {
+
     @Autowired
     private Userdao userdao;
 
@@ -55,10 +56,10 @@ public class serviceimpl implements UserService {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
+//    @Transactional(rollbackFor = Exception.class)
     public void deleteUserById(int id) throws Exception {
         userdao.deleteUserById(id);
-        throw new Exception();
+//        throw new Exception();
     }
 
     @Override
@@ -71,7 +72,8 @@ public class serviceimpl implements UserService {
            userdao.updateFindPassword(username,password);
     }
 
-
-
-
+    @Override
+    public void insertuserandpassword(String username, String password) {
+          userdao.insertuserandpassword(username,password);
+    }
 }

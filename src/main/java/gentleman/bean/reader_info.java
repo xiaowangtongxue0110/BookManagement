@@ -2,6 +2,7 @@ package gentleman.bean;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class reader_info {
@@ -11,8 +12,8 @@ public class reader_info {
 
     private String sex;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date birth;
+    @DateTimeFormat(pattern = "yyyy年MM月dd日")
+    private LocalDate birth;
 
     private String address;
 
@@ -42,11 +43,11 @@ public class reader_info {
         this.sex = sex == null ? null : sex.trim();
     }
 
-    public Date getBirth() {
+    public LocalDate getBirth() {
         return birth;
     }
 
-    public void setBirth(Date birth) {
+    public void setBirth(LocalDate birth) {
         this.birth = birth;
     }
 
@@ -67,12 +68,25 @@ public class reader_info {
 
     }
 
-    public reader_info(String name, String sex, Date birth, String address, String telcode) {
+    public reader_info(Integer readerId, String name, String sex, LocalDate birth, String address, String telcode) {
+        this.readerId = readerId;
         this.name = name;
         this.sex = sex;
         this.birth = birth;
         this.address = address;
         this.telcode = telcode;
+    }
+
+    @Override
+    public String toString() {
+        return "reader_info{" +
+                "readerId=" + readerId +
+                ", name='" + name + '\'' +
+                ", sex='" + sex + '\'' +
+                ", birth=" + birth +
+                ", address='" + address + '\'' +
+                ", telcode='" + telcode + '\'' +
+                '}';
     }
 
     public reader_info() {

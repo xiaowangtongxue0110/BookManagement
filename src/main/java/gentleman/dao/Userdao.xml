@@ -10,6 +10,12 @@
    INSERT INTO emp(name,password,phone,email) VALUES (#{name},#{password},#{phone},#{email});
     </insert>
 
+
+    <insert id="insertuserandpassword">
+   INSERT INTO emp(name,password) VALUES (#{username},#{password});
+    </insert>
+
+
     <select id="selectLogin" resultType="gentleman.bean.User" >
         select name,password,phone,email from emp where name=#{name};
     </select>
@@ -27,7 +33,7 @@
     </select>
 
     <select id="selectUser" resultType="User">
-          select * from emp limit 0,5 ;
+          select * from emp;
     </select>
 
     <update id="updateUser">

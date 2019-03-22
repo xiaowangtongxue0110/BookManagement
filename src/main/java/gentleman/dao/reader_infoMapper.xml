@@ -225,4 +225,6 @@
     <include refid="Base_Column_List" />
     from reader_info
   </select>
+
+
 </mapper>
