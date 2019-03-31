@@ -33,6 +33,7 @@ public class BookinfoController {
            return JSON.toJSONString(map);
        }
 
+
        @PostMapping("/book")
       public String insert(@RequestBody Book_info record){
            int insert = bookMapper.insert(record);

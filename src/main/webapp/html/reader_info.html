@@ -12,6 +12,18 @@
     <link href="../css/ui.jqgrid-bootstrap-ui.css" rel="stylesheet">
     <script src="../js/jquery.jqGrid.js"></script>
     <script src="../js/grid.locale-cn.js"></script>
+    <script src="../js/sweetalert-dev.js"></script>
+    <script src="../js/custombox.min.js"></script>
+    <script src="../js/custombox.legacy.min.js"></script>
+    <link href="../css/custombox.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/font-awesome.css">
+    <style type="text/css">
+        .alert-danger {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb
+        }
+    </style>
     <br>
     <br>
     <br>
@@ -23,185 +35,345 @@
                 &nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;
-                <button class="btn btn-info" onclick="userAdd()">
-                    <i class="fa fa-plus"></i>&nbsp;新增
+                <button class="btn btn-info" onclick="getSelectedRow1()"><i
+                        class="fa fa-plus"></i>&nbsp;添加
                 </button>
-                <button class="btn btn-warning" onclick="userEdit()">
-                    <i class="fa fa-edit"></i>&nbsp;编辑
+                <button class="btn btn-warning" onclick="testModal()"><i
+                        class="fa fa-pencil-square-o"></i>&nbsp;修改
                 </button>
-                <button class="btn btn-danger " onclick="userDelete()">
-                    <i class="fa fa-edit"></i>&nbsp;删除
+                <button class="btn btn-danger" onclick="deleteModal()">
+                    <i class="fa fa-trash-o fa-fw"></i>&nbsp;删除
                 </button>
+                <!--<button class="btn btn-danger" onclick="getSelectedRows()"><i-->
+                        <!--class="fa fa-trash-o"></i>&nbsp;删除-->
+                <!--</button>-->
             </div>
             <table id="jqGrid" class="table table-bordered" ></table>
             <div id="jqGridPager"></div>
-
-            <!--<table class="table table-striped">-->
-                <!--<thead>-->
-                <!--<tr>-->
-                    <!--<th>读者证号</th>-->
-                    <!--<th>姓名</th>-->
-                    <!--<th>性别</th>-->
-                    <!--<th>生日</th>-->
-                    <!--<th>地址</th>-->
-                    <!--<th>电话</th>-->
-                    <!--<th>-->
-                        <!--<input type='checkbox' id="check11">-->
-                        <!--全选-->
-                        <!--<button class='btn btn-info btn-primary btn-sm' id="delete">批量删除</button>-->
-                    <!--</th>-->
-
-                <!--</tr>-->
-                <!--</thead>-->
-                <!--<tbody id="tbody">-->
-                <!--<tr>-->
-                    <!--<td>-->
-
-                    <!--</td>-->
-                <!--</tr>-->
-                <!--</tbody>-->
-            <!--</table>-->
         </div>
     </div>
     </div>
-</div>
-</div>
+
+    <!--Custombox模态框练习-->
+    <div class="content" id="insertCumTomBox" style="display:none" >
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width: 430px;height: 640px">
+
+                <div class="modal-header">
+                    <h1 class="modal-title" align="center">添加界面</h1>
+                </div>
+
+                <div class="modal-body">
+                    <form id="user-form">
+                        <div class="form-group">
+                            <div class="alert alert-success">ESC键退出或者点击空白处退出</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="name" class="control-label">姓名:</label>
+                            <input type="text" name="name" class="form-control" id="insertname">
+                        </div>
+                        <div class="form-group">
+                            <label for="sex" class="control-label">性别:</label>
+                            &nbsp;&nbsp;&nbsp;
+                            <input name="sex" id="insertsex" type="text" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label for="birth" class="control-label">生日:</label>
+                            <input type="date" name="birth" class="form-control" id="insertbirth">
+                        </div>
+                        <div class="form-group">
+                            <label for="address" class="control-label">地址:</label>
+                            <input type="text" name="address" class="form-control" id="insertaddress">
+                        </div>
+                        <div class="form-group">
+                            <label for="telcode" class="control-label">电话:</label>
+                            <input type="text" name="telcode" class="form-control" id="inserttelcode">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="insert" class="btn btn-warning btn-lg" data-toggle="tooltip" title="点此修改读者信息" id="editButton">
+                        确认添加
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+      <!--Custombox模态框练习-->
+    <div class="content" id="custombox" style="display:none" >
+         <div class="modal-dialog" role="document">
+             <div class="modal-content" style="width: 430px;height: 640px">
+
+                 <div class="modal-header">
+                        <h1 class="modal-title" align="center">修改界面</h1>
+                 </div>
+
+                 <div class="modal-body">
+                        <form id="reader-name">
+                              <div class="form-group">
+                                  <div class="alert alert-success">ESC键退出或者点击空白处退出</div>
+                              </div>
+                            <div class="form-group">
+                                <label for="name" class="control-label">姓名:</label>
+                                <input type="text" name="name" class="form-control" id="name">
+                            </div>
+                            <div class="form-group">
+                                <label for="sex" class="control-label">性别:</label>
+                                &nbsp;&nbsp;&nbsp;
+                                <input name="sex" id="sex" type="text" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label for="birth" class="control-label">生日:</label>
+                                <input type="date" name="birth" class="form-control" id="birth">
+                            </div>
+                            <div class="form-group">
+                                <label for="address" class="control-label">地址:</label>
+                                <input type="text" name="address" class="form-control" id="address">
+                            </div>
+                            <div class="form-group">
+                                <label for="telcode" class="control-label">电话:</label>
+                                <input type="text" name="telcode" class="form-control" id="telcode">
+                            </div>
+                        </form>
+                 </div>
+                 <div class="modal-footer">
+                     <button type="button" id="update" class="btn btn-warning btn-lg" data-toggle="tooltip" title="点此修改读者信息" id="editButton">
+                         确认修改
+                     </button>
+                 </div>
+             </div>
+         </div>
+    </div>
+
+
 </body>
 <script>
 
-    $("#jqGrid").jqGrid({
-        //请求后台 JSON 数据的 URL
-        url: '/reader',
-        // type:'get',
-        //后台返回的数据格式
-        datatype: "json",
-        //列表信息，包括表头、宽度、是否显示、渲染参数等属性
-        colModel: [
-            {label: 'id', name: 'id', index: 'id', width: 50, hidden: true, key: true},
-            {label: '读者证号', name: 'readerId', index: 'readerId', sortable: false, width: 80},
-            {label: '姓名', name: 'name', index: 'name', sortable: false, width: 80},
-            {label: '性别', name: 'sex', index: 'sex', sortable: false, width: 80},
-            {label: '生日', name: 'birth', index: 'birth', sortable: false, width: 80},
-            {label: '地址', name: 'address', index: 'address', sortable: false, width: 80},
-            {label: '电话', name: 'telcode', index: 'telcode', sortable: false, width: 80}
-        ],
+        $("#jqGrid").jqGrid({
+            //请求后台 JSON 数据的 URL
+            url: '/reader',
+            // type:'get',
+            //后台返回的数据格式
+            datatype: "json",
+            //列表信息，包括表头、宽度、是否显示、渲染参数等属性
+            colModel: [
+                {label: '读者证号', name: 'readerId', index: 'id', sortable: false, key:true,width: 80},
+                {label: '姓名', name: 'name', index: 'name', sortable: false, width: 80},
+                {label: '性别', name: 'sex', index: 'sex', sortable: false, width: 80},
+                {label: '生日', name: 'birth', index: 'birth', sortable: false, width: 80},
+                {label: '地址', name: 'address', index: 'address', sortable: false, width: 80},
+                {label: '电话', name: 'telcode', index: 'telcode', sortable: false, width: 80}
+            ],
 
-        //表格高度，可自行调节
-        height: 346,
-        //默认一页显示多少条数据，可自行调节
-        rowNum: 10,
-        //翻页控制条中，每页显示记录数可选集合
-        rowList: [10, 30, 50],
-        //主题，这里选用的是 Bootstrap 主题
-        styleUI: 'Bootstrap',
-        //数据加载时显示的提示信息
-        loadtext: '信息读取中...',
-        //是否显示行号，默认值是 false，不显示
-        rownumbers: true,
-        //行号列的宽度
-        rownumWidth: 35,
-        //宽度是否自适应
-        autowidth: true,
-        //是否可以多选
-        multiselect: true,
-        //分页信息 DOM
-        pager: "#jqGridPager",
-        // 直接默认返回值是data
-        jsonReader: {
-            root: "list",           //数据列表模型
-            page: "data.currPage",       //数据页码
-            total: "totalPage",     //数据总页码
-            records: "totalCount"   //数据总记录数
-        },
-        // 向后台请求的参数
-        prmNames: {
-            page: "page",
-            rows: "limit"
-            // order: "order"
-        },
+            //表格高度，可自行调节
+            height: 346,
+            //默认一页显示多少条数据，可自行调节
+            rowNum: 10,
+            //翻页控制条中，每页显示记录数可选集合
+            rowList: [10, 30, 50],
+            //主题，这里选用的是 Bootstrap 主题
+            styleUI: 'Bootstrap',
+            //数据加载时显示的提示信息
+            loadtext: '信息读取中...',
+            //是否显示行号，默认值是 false，不显示
+            rownumbers: false,
+            //行号列的宽度
+            rownumWidth: 35,
+            //宽度是否自适应
+            autowidth: true,
+            //是否可以多选
+            multiselect: true,
+            //分页信息 DOM
+            pager: "#jqGridPager",
+            // 直接默认返回值是data
+            jsonReader: {
+                root: "list",           //数据列表模型
+                page: "data.currPage",       //数据页码
+                total: "totalPage",     //数据总页码
+                records: "totalCount"   //数据总记录数
+            },
+            // 向后台请求的参数
+            prmNames: {
+                page: "page",
+                rows: "limit"
+                // order: "order"
+            },
 
-        // start和limit分别代表当前页数和10-20 20-30
-        // 数据加载完成并且 DOM 创建完毕之后的回调函数
-        gridComplete: function () {
-            //隐藏 Grid 底部滚动条
-            $("#jqGrid").closest(".ui-jqgrid-bdiv").css({"overflow-x": "hidden"});
-        }
-    });
-
-    function userEdit() {
-        var id = getSelectedRow();
-        if (id == null) {
-            return;
-        }
-        $('#userId').val(id);
-
-        //点击编辑按钮后执行操作
-        var modal = new Custombox.modal({
-            content: {
-                effect: 'fadein',
-                target: '#modalEdit'
+            // page和limit分别代表当前页数和每页数据量，这里是10
+            // 数据加载完成并且 DOM 创建完毕之后的回调函数
+            gridComplete: function () {
+                //隐藏 Grid 底部滚动条
+                $("#jqGrid").closest(".ui-jqgrid-bdiv").css({"overflow-x": "hidden"});
             }
         });
-        modal.open();
+
+
+
+    function getSelectedRow1() {
+        var test = new Custombox.modal({
+            content:{
+                effect:"blur",
+                target:"#insertCumTomBox"
+            }
+        });
+        test.open();
     }
 
 
-          function userAdd(){
-               $(location).attr('href','/html/addReader.html');
+    $("#insert").click(function () {
+        var jsonForm= $('#user-form').serializeArray();
+        var jsonData = {};
+        $.each(jsonForm,function (i,v) {
+            jsonData[v.name] = v.value;
+        }); //参数
+        var params = JSON.stringify(jsonData);
+        console.log(params);
+        $.ajax({
+            url:"/reader",
+            type:"post",
+            dataType:"json",
+            data:params,
+            contentType:"application/json",
+            success:function (result) {
+                if(result=="success"){
+                    swal("添加成功！","您将可以在查看界面查看您最新添加的读者","success");
+                    Custombox.modal.closeAll();
+                    $("#jqGrid").jqGrid('setGridParam',{  // 重新加载数据
+                        datatype:'json',
+                        page:1
+                    }).trigger("reloadGrid");
+                    $("#insertCumTomBox").modal('hide');
+                }else{
+                    swal("添加失败！","因系统不可抗力导致","error");
+                }
+            }
+        });
+    });
+
+    function testModal() {
+        var id = getSelectedRow();
+
+        $.ajax({
+            url:"/readers/"+id,
+            type:"get",
+            dataType:"json",
+            success:function (result) {
+                  $("#name").val(result.name);
+                  $("#birth").val(result.birth);
+                  $("#address").val(result.address);
+                  $("#telcode").val(result.telcode);
+                  $("#sex").val(result.sex);
+            }
+        })
+    }
+
+    function deleteModal() {
+          var id = getSelectedRows();
+          if(id!=null){
+              swal({
+                  title:"确定要删除这些数据吗?",
+                  text:"(删除后不可恢复!)",
+                  type:"warning",
+                  showCancelButton: true,
+                  confirmButtonColor: "#DD6B55",
+                  confirmButtonText: "确定！",
+                  cancelButtonText: "取消！",
+                  closeOnConfirm: false,
+              },function () {
+                  var s = JSON.stringify(id);
+                  $.ajax({
+                      url:"/reader1",
+                      type:"post",
+                      dataType: "json",
+                      data:{"str":s},
+                      success:function (result) {
+                          if(result=="success"){
+                              swal('删除成功','','success');
+                              $("#jqGrid").jqGrid('setGridParam',{  // 重新加载数据
+                                  datatype:'json',
+                                  page:1
+                              }).trigger("reloadGrid");
+                          }else {
+                              swal('删除失败','因系统不可抗力导致','error');
+                          }
+                      }
+                  });
+              });
           }
+    }
 
-        //
-        // $("#check11").click(function () {
-        //     var hz = $("#check11").prop("checked");
-        //     $(".qx").prop('checked',hz);
-        // });
+        function getSelectedRows() {
+            var grid = $("#jqGrid");
+            var rowKey = grid.getGridParam("selrow");
+            if (!rowKey) {
+                swal('请选择一条记录','','error');
+                return;
+            }
+            return grid.getGridParam("selarrrow");
+        }
 
-        //
-        // $("#delete").click(function () {
-        //     var zhi = $('input:checkbox:checked');
-        //     var id = '';
-        //     var str = '';
-        //     $.each(zhi,function(){
-        //       id = this.parentNode.parentNode.firstChild.innerHTML;
-        //                     if(id!=null){
-        //                         str += id+",";
-        //                     }
-        //         swal({
-        //            title:"确定要删除这"+zhi.length+'个读者的数据吗',
-        //             showCancelButton: true,
-        //             confirmButtonColor: "#DD6B55",
-        //             confirmButtonText: "确定！",
-        //             cancelButtonText: "取消！",
-        //             closeOnConfirm: false,
-        //             closeOnCancel: false
-        //         },function (isConfirm) {
-        //              var s = JSON.stringify(str);
-        //              console.log(s);
-        //             if(isConfirm){
-        //                 $.ajax({
-        //                    url:"/reader1",
-        //                     type:"post",
-        //                     dataType: "json",
-        //                     data:{"str":s},
-        //                     success:function (result) {
-        //                         if(result=="success"){
-        //                             swal('删除成功','','success');
-        //                             getAll();
-        //                         }else {
-        //                             swal('删除失败，因系统不可抗力导致','','error');
-        //                         }
-        //                     }
-        //                 });
-        //             }else {
-        //                 swal("取消！", "停留在此页面", "info");
-        //             }
-        //         });
-        //     });
-        //          console.log(JSON.stringify(typeof str));
-        // });
 
+    function getSelectedRow() {
+        var grid = $("#jqGrid");
+        var rowKey = grid.getGridParam("selrow");
+        if (!rowKey) {
+            swal('请选择一条记录','','error');
+            return;
+        }
+        var selectedIDs = grid.getGridParam("selarrrow");
+        if (selectedIDs.length > 1) {
+            swal('只能选择一条记录','','error');
+            return;
+        }
+        var test = new Custombox.modal({
+            content:{
+                effect:"door",
+                target:"#custombox"
+            }
+        });
+        test.open();
+        return selectedIDs[0];
+    }
+
+    $("#update").click(function () {
+        var grid = $("#jqGrid");
+        var selectedIDs = grid.getGridParam("selarrrow");
+             var id = selectedIDs[0];
+        var jsonfrom = $('#reader-name').serializeArray();
+        console.log("jsonfrom="+jsonfrom);
+       var jsondata = {};
+        $.each(jsonfrom,function (i,v) {
+            jsondata[v.name] = v.value;
+        });
+        var params = JSON.stringify(jsondata);
+        console.log("params="+params);
+        $.ajax({
+           url:"/reader/"+id,
+            type:"put",
+            dataType:"json",
+            data:params,
+            contentType:"application/json",
+            success:function (result) {
+                if(result=="success"){
+                     swal('修改成功！','可在列表中查看修改的读者数据','success');
+                    Custombox.modal.closeAll();
+                    $("#jqGrid").jqGrid('setGridParam',{  // 重新加载数据
+                        datatype:'json',
+                        page:1
+                    }).trigger("reloadGrid");
+                }else {
+                    swal('修改失败！','因系统不可抗力导致','error');
+                }
+            }
+        });
+    });
 
     $(function(){
+        $("[data-toggle='tooltip']").tooltip();
         var name = Cookies.get('username');
         var name1 = Cookies.get('username2');
         if (name != null) {
@@ -217,32 +389,10 @@
         })
     });
 
+    function getAll() {
 
-        // function getAll() {
-        //     $.ajax({
-        //         url: "/reader",
-        //         type: "get",
-        //         dataType: "json",
-        //         success:function (result) {
-        //             var dataTR = "";
-        //             $.each(result, function (index, value) {
-        //                 dataTR +=
-        //                     "<tr>" +
-        //                     "<td>" + value.readerId + "</td>" +
-        //                     "<td>" + value.name + "</td>" +
-        //                     "<td>" + value.sex + "</td>" +
-        //                     "<td>" + value.birth + "</td>" +
-        //                     "<td>" + value.address + "</td>" +
-        //                     "<td>" + value.telcode + "</td>" +
-        //                     "<td>" +
-        //                     "<input type='checkbox' class='qx'> " +
-        //                     "</td>" +
-        //                     "</tr>";
-        //             });
-        //             $("#tbody").html(dataTR);
-        //         }
-        //     });
-        // }
+    }
+
 
 </script>
 </html>

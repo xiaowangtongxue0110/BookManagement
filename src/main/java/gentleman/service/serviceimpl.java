@@ -2,6 +2,7 @@ package gentleman.service;
 
 import gentleman.bean.User;
 import gentleman.dao.Userdao;
+import gentleman.util.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,6 +38,7 @@ public class serviceimpl implements UserService {
 
     @Override
     public User selectLoginUserAndPassword(String username, String password) {
+
         return userdao.selectLoginUserAndPassword(username,password);
     }
 
@@ -56,10 +58,8 @@ public class serviceimpl implements UserService {
     }
 
     @Override
-//    @Transactional(rollbackFor = Exception.class)
-    public void deleteUserById(int id) throws Exception {
+    public void deleteUserById(int id){
         userdao.deleteUserById(id);
-//        throw new Exception();
     }
 
     @Override
@@ -73,7 +73,8 @@ public class serviceimpl implements UserService {
     }
 
     @Override
-    public void insertuserandpassword(String username, String password) {
-          userdao.insertuserandpassword(username,password);
+    public void insertuserandpassword(String username, String password) throws Exception {
+        String newpassword = MD5Util.MD5Encode(password, "utf-8");
+        userdao.insertuserandpassword(username,newpassword);
     }
 }

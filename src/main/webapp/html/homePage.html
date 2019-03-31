@@ -97,8 +97,6 @@
 <script>
 
 
-
-
     $("#resultset").click(function () {
         swal({
                 title: "确定要离开吗？",
@@ -128,8 +126,10 @@
                var name1 = Cookies.get('username2');
            if (name != null) {
                $('#loginUserName').text(name + ',欢迎您!');
+               Cookies.remove('username2',{path: ''});
            } else if (name1 !=null ) {
                $('#loginUserName').text(name1 + ',欢迎您!');
+               Cookies.remove('username',{path: '/'});
            } else {
                alert('未登录！非法访问!返回登陆页面');
                $(location).attr('href','/html/index.html');

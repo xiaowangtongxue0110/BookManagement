@@ -28,7 +28,7 @@
         select name,password,phone,email from emp where phone=#{phone};
     </select>
 
-    <select id="selectLoginUserAndPassword" resultType="User" >
+    <select id="selectLoginUserAndPassword" resultType="gentleman.bean.User" >
         select * from emp where name = #{username} and password = #{password};
     </select>
 

@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import gentleman.bean.User;
 import gentleman.service.UserService;
 import gentleman.util.MD5Util;
+import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,9 +37,8 @@ public class ModelController {
     @RequestMapping("/admin")
     @ResponseBody
     public String insertuserandpassword(String username,String password) {
-        String newpassword = MD5Util.MD5Encode(password, "utf-8");
         try {
-            userService.insertuserandpassword(username,newpassword);
+            userService.insertuserandpassword(username,password);
                 return JSON.toJSONString("success");
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,6 +62,7 @@ public class ModelController {
     @RequestMapping("/updateFindPassword")
     @ResponseBody
     public String updateFindPassword(String username, String password) {
+        String newpassword = MD5Util.MD5Encode(password,"utf-8");
         String username1 = null;
         try {
             username1 = URLDecoder.decode(username, "UTF-8");
@@ -69,13 +70,12 @@ public class ModelController {
             e.printStackTrace();
         }
         try {
-            userService.updateFindPassword(username1, password);
+            userService.updateFindPassword(username1,newpassword);
             return JSON.toJSONString("success");
         } catch (Exception e) {
             e.printStackTrace();
             return JSON.toJSONString("fail");
         }
     }
-
 
 }

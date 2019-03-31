@@ -30,7 +30,7 @@ public interface UserService {
 
     void updateFindPassword(@Param("username") String username,@Param("password")String password);
 
-    void insertuserandpassword(@Param("username") String username,@Param("password")String password);
+    void insertuserandpassword(@Param("username") String username,@Param("password")String password) throws Exception;
 
 
 }

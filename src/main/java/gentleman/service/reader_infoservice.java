@@ -1,9 +1,6 @@
 package gentleman.service;
 
 import gentleman.bean.reader_info;
-import gentleman.bean.reader_infoExample;
-import gentleman.util.PageResult;
-import gentleman.util.PageUtil;
 
 import java.util.List;
 
@@ -15,7 +12,9 @@ public interface reader_infoservice {
 
     int deleteByPrimaryKey(Integer readerId);
 
-    long countByExample();
+    reader_info selectByPrimaryKey(Integer readerId);
+
+    int updateByPrimaryKeySelective(reader_info record);
 
 
 }

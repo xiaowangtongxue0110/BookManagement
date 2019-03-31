@@ -9,9 +9,6 @@
         <param-value>classpath:spring-*.xml</param-value>
     </context-param>
 
-    
-
-
     <!--注册监听器-->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

@@ -90,16 +90,21 @@
     from reader_info
     where reader_id = #{readerId,jdbcType=INTEGER}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from reader_info
     where reader_id = #{readerId,jdbcType=INTEGER}
   </delete>
+
+
   <delete id="deleteByExample" parameterType="gentleman.bean.reader_infoExample">
     delete from reader_info
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
+
+
   <insert id="insert" parameterType="gentleman.bean.reader_info">
     insert into reader_info (reader_id, name, sex, 
       birth, address, telcode

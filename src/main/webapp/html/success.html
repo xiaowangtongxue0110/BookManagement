@@ -24,8 +24,8 @@
                     <th>编号</th>
                     <th>用户名</th>
                     <th>密码</th>
-                    <th>邮箱</th>
                     <th>手机</th>
+                    <th>邮箱</th>
                     <th>操作</th>
                 </tr>
                 </thead>
@@ -188,7 +188,6 @@
 
 
       function saveReport() {
-                var f = false;
                var username = $("#username").val();
                var password = $("#password").val();
                $.ajax({
@@ -200,12 +199,17 @@
                       console.log(result);
                         if(result=="success"){
                             swal("添加成功！","","success");
-                            $(location).attr('href',"/html/success.html");
-                            f = true;
+                            getAll();
+                            $("#myModal").modal('hide');
+                        }else {
+                            swal("添加失败！","","error");
+                            getAll();
+                            $("#myModal").modal('hide');
                         }
+
                    }
                });
-                    return f;
+                    return false;
       }
 
     function getAll() {
@@ -250,6 +254,9 @@
             }
         });
     }
+
+
+
 
 
     function getUserById(userId) {

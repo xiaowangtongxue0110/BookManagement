@@ -2,7 +2,6 @@ package gentleman.dao;
 
 import gentleman.bean.reader_info;
 import gentleman.bean.reader_infoExample;
-import gentleman.util.PageUtil;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -13,7 +12,7 @@ public interface reader_infoMapper {
 
     int deleteByExample(reader_infoExample example);
 
-    int deleteByPrimaryKey(Integer readerId);
+    int deleteByPrimaryKey(@Param("readerId") Integer readerId);
 
     int insert(reader_info record);
 
@@ -26,6 +25,7 @@ public interface reader_infoMapper {
     int updateByExampleSelective(@Param("record") reader_info record, @Param("example") reader_infoExample example);
 
     int updateByExample(@Param("record") reader_info record, @Param("example") reader_infoExample example);
+
 
     int updateByPrimaryKeySelective(reader_info record);
 
